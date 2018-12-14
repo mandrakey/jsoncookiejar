@@ -32,6 +32,7 @@ func (jar *JsonCookieJar) Load() error {
     f, err := os.OpenFile(jar.filename, os.O_RDONLY, 0644); if err != nil {
         return fmt.Errorf("failed to open file %s for reading: %s", jar.filename, err)
     }
+    defer f.Close()
 
     decoder := json.NewDecoder(f)
     err = decoder.Decode(&jar.entries); if err != nil {
@@ -44,6 +45,7 @@ func (jar *JsonCookieJar) Store() error {
     f, err := os.OpenFile(jar.filename, os.O_WRONLY | os.O_CREATE | os.O_TRUNC, 0644); if err != nil {
         return fmt.Errorf("failed to open file for writing: %s", err)
     }
+    defer f.Close()
 
     data, err := json.Marshal(jar.entries); if err != nil {
         return fmt.Errorf("failed to marshal data: %s", err)
