@@ -58,9 +58,9 @@ func (jar *JsonCookieJar) Store() error {
     return nil
 }
 
-func (jar *JsonCookieJar) SetCookies(u *url.URL, cookies []*http.Cookie) error {
+func (jar *JsonCookieJar) SetCookies(u *url.URL, cookies []*http.Cookie) {
     jar.SetCookiesNoStore(u, cookies)
-    return jar.Store()
+    jar.Store()
 }
 
 func (jar *JsonCookieJar) SetCookiesNoStore(u *url.URL, cookies []*http.Cookie) {
